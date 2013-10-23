@@ -1,0 +1,33 @@
+##To anybody reading this, these are my personal notes and are in NO way things anybody else should do. I will make a formal README at some point with proper instructions
+
+
+MODIFICATIONS
+Two header files in arch/arm/mach-mx6
+Modified file drm.h in include/drm/
+added line in /arch/arm/mach-mx6/board-mx6q-sabresd.c
+modified [static inline void mx6q_seco_UDOO_init_uart] in board-mx6_seco_UDOO.c to include more UART ports
+
+
+SYSTEM
+Made changes to (and added file) /etc/init/ttymxc3.conf
+cmd: stty to fix baud rate of ports to 9600 [sudo stty -F /dev/ttymxc3 9600]
+modified /etc/default/console-setup to include more ttys[#]
+
+ps -ef | grep getty
+
+
+
+
+
+
+NOTES:
+ttymxc0 : UART1
+ttymxc1 : UART2 : USB
+ttymxc3 : UART4+R : TXRX1
+
+
+
+To compile kernel (in one line)
+use udoo-kc
+
+LED protoblock is on GPIO20 / GPIO17
