@@ -1,0 +1,62 @@
+#!/bin/bash
+
+# UDOO Kernel Compiler
+## Written by Jake Tesler for F13 16-861 GLXP Avionics Team (UDOO board Rev.D)
+## Written on October 16, 2013
+
+#must be placed in "kernel" directory
+
+echo -e "UDOO Kernel Compiler v0.2\n"
+sleep 2
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+
+case $1 in 
+	
+	--no-modules)
+		set -e
+		#cd $DIR/kernel
+		echo -e "NO MODULES\n\n"
+		echo -e "Removing old files...\n"
+		rm ./arch/arm/boot/*Image*
+		rm ./arch/arm/boot/compressed/vmlinux
+		rm ./arch/arm/boot/compressed/vmlinux.lds
+		echo -e "\nCleaning...\n"
+		make clean
+		echo -e "\nConfiguration...\n"
+		make ARCH=arm UDOO_defconfig
+		echo -e "\nBuilding uImage...\n"
+		make -j4 CROSS_COMPILE=./opt/local/bin/arm-none-eabi- ARCH=arm uImage
+		echo -e "\nFinished!"
+		;;
+		
+	--help)
+		echo -e "Use to compile the UDOO kernel. [MUST BE RUN AS ROOT]"
+		echo -e "USAGE: udoo-kc [OPTIONS]"
+		echo -e "OPTIONS: 
+			--no-modules - Don't compile modules.\n
+			--help - View this help screen.\n"
+		;;
+		
+	*)
+		set -e
+		#cd $DIR/kernel
+		echo -e "Removing old files...\n"
+		rm ./arch/arm/boot/*Image*
+		rm ./arch/arm/boot/compressed/vmlinux
+		rm ./arch/arm/boot/compressed/vmlinux.lds
+		echo -e "\nCleaning...\n"
+		make clean
+		echo -e "\nConfiguration...\n"
+		make ARCH=arm UDOO_defconfig
+		echo -e "\nBuilding uImage...\n"
+		make -j4 CROSS_COMPILE=./opt/local/bin/arm-none-eabi- ARCH=arm uImage
+		echo -e "\nBuilding Modules...\n"
+		make -j4 CROSS_COMPILE=./opt/local/bin/arm-none-eabi- ARCH=arm modules
+		echo -e "\nInstalling Modules...\n"
+		make modules_install INSTALL_MOD_PATH=. CROSS_COMPILE=./opt/local/bin/arm-none-eabi- ARCH=arm
+		echo -e "\nFinished!"
+		;;
+		
+esac
+
