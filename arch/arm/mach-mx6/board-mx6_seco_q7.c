@@ -368,7 +368,9 @@ static struct ahci_platform_data mx6q_seco_q7_sata_data = {
 static inline void mx6q_seco_q7_init_uart(void) {
 	imx6q_add_imx_uart(0, NULL);
 	imx6q_add_imx_uart(1, NULL);
+	imx6q_add_imx_uart(2, NULL);
     imx6q_add_imx_uart(3, NULL);
+	imx6q_add_imx_uart(4, NULL);
 }
 
 
@@ -1160,6 +1162,8 @@ static void __init mx6_seco_q7_timer_init(void) {
 
 	uart_clk = clk_get_sys("imx-uart.0", NULL);
 	early_console_setup(UART2_BASE_ADDR, uart_clk);
+	//uart_clk = clk_get_sys("imx-uart.3", NULL);
+	//early_console_setup(UART4_BASE_ADDR, uart_clk);
 }
 
 static struct sys_timer mx6_seco_q7_timer = {
