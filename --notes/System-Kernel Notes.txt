@@ -17,7 +17,15 @@ ps -ef | grep getty
 
 
 
+TO MAKE CHANGES TO GPIO DEFAULTS:
+Change the startup value of a gpio pin (input/outHigh/outLow):
+-Open board-mx6sdl_seco_UDOO.h in /arch/arm/mx6 (or quad header file for that board instead)
+-Move pin definition from one method to the method you want
+(e.g.) move "MX6DL_PAD_GPIO_0__GPIO_MODE," from static unsigned int mx6dl_set_in_outputmode_high[] to static unsigned int mx6dl_set_in_outputmode_low[]
+to change from default outHigh to outLow on boot.
+[NOTE: get name of GPIO pin from the UDOO alternate pin definition table. GPIO will usually be listed under ALT5 as GPIO#_IOxx where xx is the GPIO pin you want.]
 
+Additionally, to change the default MODE of a GPIO pin (i.e. GPIO —> UART instead), remove it from these methods (or comment out) and change the definition above. There are many, just uncomment the one you want and comment the previous definition. 
 
 
 NOTES:
@@ -31,3 +39,13 @@ To compile kernel (in one line)
 use udoo-kc
 
 LED protoblock is on GPIO20 / GPIO17
+
+
+To connect: 
+ENTER: screen /dev/tty[[whatever file it is]] 115200
+replace the brackets with the name of the connector
+use "ls /dev/tty*" to find devices
+
+To write to GPIO:
+echo out > /sys/class/gpio/gpioxx/direction
+echo 1 > /sys/class/gpio/gpioxx/value
