@@ -91,15 +91,15 @@ replace the brackets with the name of the connector
 ### TO MAKE CHANGES TO GPIO PINS:
 
 ###Pin Muxing
->To change the Software Function of a GPIO pin (i.e. GPIO —> UART instead):
+To change the Software Function of a GPIO pin (i.e. GPIO —> UART instead):
 
->1. Find the architecture core platform header file and search for the KER Pin name within the file (e.g. board-mx6qd\_seco\_UDOO.h)
+1. Find the architecture core platform header file and search for the KER Pin name within the file (e.g. board-mx6qd\_seco\_UDOO.h)
 2. Comment out the previous definition from the "static iomux\_v3\_cfg\_t mx6sdl\_seco\_UDOO\_pads[]" method. Uncomment the mode you want instead. There are many forms of the pin in the code, so just uncomment the one you want and comment the previous pin definition.<br>NOTE: Leave only ONE uncommented!
 3. If you are changing a pin from SW Pin (Direct GPIO) to a SW BUS, comment out the KER Pin entry from one of the "mx6dl\_set\_\*\_outputmode\_\*" methods below.
 <br>If changing from a SW BUS to a GPIO, be sure to uncomment a KER PIN entry.
 
 ###Change the startup value of a GPIO pin (input/outHigh/outLow):
->1. Open board-mx6sdl\_seco\_UDOO.h in /arch/arm/mx6 (or quad name and respective header file for that board instead)
+1. Open board-mx6sdl\_seco\_UDOO.h in /arch/arm/mx6 (or quad name and respective header file for that board instead)
 2. Comment out pin definition from one method, uncomment in the method you want
 <br>(e.g.) move '"MX6DL\_PAD\_GPIO\_0\_\_GPIO\_MODE,"' (including comma, excluding quotes) 
 <br>from '"static unsigned int mx6dl\_set\_in\_outputmode\_high[]"'
