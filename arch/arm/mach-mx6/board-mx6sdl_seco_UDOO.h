@@ -7,6 +7,7 @@
 
 #define INTERNAL_SERIAL_ENABLED
 #define COLLAUDO_GPIO
+#define REVD //##added
 
 
 /******************************************************************
@@ -458,6 +459,9 @@ static unsigned int mx6dl_set_in_outputmode_low[] = {
 	MX6DL_PAD_EIM_A19__GPIO_MODE,
 	MX6DL_PAD_SD4_DAT7__GPIO_MODE,	
 	MX6DL_PAD_CSIO_DAT18__GPIO_MODE, // camera attivo alto
+	
+	MX6DL_PAD_SD1_DAT1__GPIO_MODE, //LED GPIO17
+	MX6DL_PAD_SD1_CLK__GPIO_MODE, //LED GPIO20
 #ifdef REVB
 	MX6DL_PAD_GPIO_8__GPIO_MODE, // connette l'otg verso l'esterno
 #endif
@@ -466,6 +470,7 @@ static unsigned int mx6dl_set_in_outputmode_low[] = {
 
 static unsigned int mx6dl_set_in_outputmode_high[] = {
 	// connessioni interne
+	//##MUST INSERT ENABLE FOR MOTORBOARD
 	MX6DL_PAD_GPIO_0__GPIO_MODE,
 	MX6DL_PAD_GPIO_16__GPIO_MODE,   // alimentazione bus otg del sam3x 1 per adk
 	MX6DL_PAD_NANDF_D5__GPIO_MODE,	// abilita alimentazione dell sdcard	
@@ -497,7 +502,7 @@ static unsigned int mx6dl_set_in_inputmode[] = {
 	MX6DL_PAD_SD1_DAT0__GPIO_MODE,
 #endif
 
-#ifndef INTERNAL_SERIAL_ENABLED	
+#ifndef INTERNAL_SERIAL_ENABLED	 //##IS THIS USB?? [It's in inputmode...?]
 	MX6DL_PAD_KEY_ROW0__GPIO_MODE,
 	MX6DL_PAD_KEY_COL0__GPIO_MODE,
 #endif
@@ -510,8 +515,8 @@ static unsigned int mx6dl_set_in_inputmode[] = {
 	MX6DL_PAD_GPIO_7__GPIO_MODE,
 	//MX6DL_PAD_CSI0_DAT10__GPIO_MODE,
 	//MX6DL_PAD_CSI0_DAT11__GPIO_MODE,	
-	MX6DL_PAD_SD1_CLK__GPIO_MODE,
-	MX6DL_PAD_SD1_DAT1__GPIO_MODE,   		
+	//MX6DL_PAD_SD1_CLK__GPIO_MODE, 	#gpio20
+	//MX6DL_PAD_SD1_DAT1__GPIO_MODE,   	GPIO17, made output	
 	MX6DL_PAD_SD1_CMD__GPIO_MODE,   		
 	MX6DL_PAD_SD4_DAT1__GPIO_MODE,   			
 	MX6DL_PAD_SD4_DAT2__GPIO_MODE,
