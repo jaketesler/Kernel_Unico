@@ -82,7 +82,8 @@ DEV Pin : SW BUS : add'l conn.
 ###To connect: 
 Type into prompt:
 >screen /dev/tty[[whatever file it is, see above]] 115200
-<br>replace the brackets with the name of the connector
+
+replace the brackets with the name of the connector
 <br>use "ls /dev/tty*" to find devices
 
 
