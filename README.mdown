@@ -12,8 +12,8 @@ UDOO kernel files are mainly located in /arch/arm/mach-mx6
 
 ###NOTE: For this document, UDOO Dual-Core (sdl) is used as the example. To switch from Dual- to Quad-Core, just replace (sdl) with (qd) or (Q) within files as needed.
 <br>
-##GPIO Pin naming convention
-From now on, please use the following naming convention when referring to GPIO or UDOO pins:
+##Note about GPIO pins
+From now on, please use the following naming convention when referring to UDOO or GPIO pins:
 
 *	GPIO "software pin" (**SWPin**):
 <br>This is the GPIO pin as defined in the graphical pin diagram and used for manually manipulating the value.
