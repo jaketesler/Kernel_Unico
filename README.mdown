@@ -15,30 +15,30 @@ UDOO kernel files are mainly located in /arch/arm/mach-mx6
 ##Note about GPIO pins (within our documentation)
 For the sake of clarity, we need to define "GPIO pin".
 The term "GPIO pin" has many different definitions, and so please use the following 'key' when referring to pins:
->_GPIO "software pin" (**SWPin**):_
+>*	GPIO "software pin" (**SWPin**):
 <br>This is the GPIO pin as defined in the graphical pin diagram and used for manually manipulating the value.
 <br>[e.g. pin number is the 'XX' value in /sys/class/gpio/gpioXX/direction]
 <br>The SW pin can be found on the graphical pin diagram.
 <br>NOTE: If a pin is muxed to be a GPIO, use SW Pin. If it is muxed to something other than a GPIO (UART, I2C, etc.), describe it as a SW BUS pin.
 
-><br>_GPIO "software interface" or "software bus" (**SW BUS**):_
+><br>*	GPIO "software interface" or "software bus" (**SW BUS**):
 <br>If a pin is muxed as something other than GPIO, we need to describe it as such. Use "software interface" instead of "software pin".
 <br>[e.g. UART4, PWM3, SDA1]
 <br>The different interface types of the pins are listed on the graphical pin diagram. 
 <br><i>NOTE: Certain HW pins can have multiple software interface types, and some exact interface types even appear on multiple pins. If possible, mention either the SW or HW pin associated with the SW BUS.</i>
 
 
-><br>_GPIO "kernel pin" (**KERPin**):_
+><br>*	GPIO "kernel pin" (**KERPin**):
 <br>This is the name of the pin as defined in the alternate pin table documentation and in the kernel source files. 
 <br>[e.g. the "CSI0\_DAT13" in '"MX6DL\_PAD\_CSI0\_DAT13\_\_UART4\_RXD,"', or the "GPIO\_1" in '"MX6DL\_PAD\_GPIO\_1\_\_PWM2\_PWMO,"'.]
 <br>The KER Pin can be found in the Alternate Pin Table, where the HW Pin will be listed under ALT5 as GPIO#\_IOxx whereby xx is the HW GPIO pin you want. <br>Look down the column, and within iMX.6, the "Pin Name" will be the KER Pin.
 
-><br>_GPIO "hardware pin" or "physical pin" (**HWPin**):_
+><br>*	GPIO "hardware pin" or "physical pin" (**HWPin**):
 <br>This is the pin number that corresponds to the silkscreen on the board (or the graphical pin documentation). 
 <br>[e.g. D58, TX1]
 <br>The HW Pin can be found on the graphical pin diagram.
 
-><br>_GPIO "dev pin" (**DEVPin**):_
+><br>*	GPIO "dev pin" (**DEVPin**):
 <br>This isn't really a number, but we can use this to describe the /dev/ttyXXXX file a particular SW Pin or KER Pin refers to. 
 <br>[e.g. ttymxc3, tty1]
 
