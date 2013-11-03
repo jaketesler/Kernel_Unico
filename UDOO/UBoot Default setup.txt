@@ -1,0 +1,47 @@
+In:    serial
+Out:   serial
+Err:   serial
+Net:   got MAC address from IIM: 00:c0:08:86:20:be
+FEC0
+Hit any key to stop autoboot:  0 
+MX6DL UDOO U-Boot > printenv
+bootdelay=3
+baudrate=115200
+ipaddr=192.168.1.103
+serverip=192.168.1.101
+netmask=255.255.255.0
+loadaddr=0x10800000
+rd_loadaddr=(0x10800000 + 0x300000)
+uboot=u-boot.bin
+kernel=uImage
+bootargs=console=ttymxc1,115200 root=/dev/mmcblk0p1 rootwait rw fixrtc rootflags=barrier=1 mem=768M arm_freq=996 video=mxcfb0:dev=hdmi,1920x1080M@60,if=RGB24
+
+bootargs=${console} ${root} ${options} ${memory} ${cpu_freq} ${video mode}
+
+bootcmd=mmc dev 2; ext2load mmc 2:1 10800000 /boot/uImage; bootm 10800000
+stdin=serial
+stdout=serial
+stderr=serial
+ethact=FEC0
+
+
+PRESET:
+setenv options rootwait rw fixrtc "rootflags=barrier=1"; setenv memory "mem=768M"; setenv cpu_freq "arm_freq=996"; setenv videosetting high; setenv videotester if test \"\${videosetting}\" = \"high\"\; then "setenv videomode video=mxcfb0:dev=hdmi,1920x1080M@60,if=RGB24"\; else "setenv videomode video=mxcfb0:dev=ldb,LDB-WVGA,if=RGB666"\; fi; setenv bootargs console=ttymxc1,115200 "root=/dev/mmcblk0p1" \${options} \${memory} \${cpu_freq} \${video mode}; setenv bootcmd "run videotester; mmc dev 2; ext2load mmc 2:1 10800000 /boot/uImage"\; "bootm 10800000"; saveenv; 
+
+
+
+
+TO GO TO LOW VIDEO MODE
+#setenv videosetting low
+saveenv
+
+
+
+TO GO TO HDMI VIDEO MODE
+#setenv videosetting high
+saveenv
+
+
+bootargs!
+memory=mem=768M
+cpu_freq=arm_freq=996
