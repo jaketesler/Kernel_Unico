@@ -8,6 +8,7 @@ UDOO kernel files are mainly located in /arch/arm/mach-mx6
 <br>Files with "sdl" are Dual-Core; files with "qd" are Quad-Core. If you change something within a file it will only affect that specific core architecture platform.
 <br><br>To compile kernel, use custom included utility "udoo-kc"
 <br>See "udoo-kc --help" for help.
+<br>UBOOT files are located in the /UDOO folder
 <br>
 
 ###NOTE: For this document, UDOO Dual-Core (sdl) is used as the example. To switch from Dual- to Quad-Core, just replace (sdl) with (qd) or (Q) within files as needed.
