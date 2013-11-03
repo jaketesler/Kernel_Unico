@@ -15,30 +15,34 @@ UDOO kernel files are mainly located in /arch/arm/mach-mx6
 ##Note about GPIO pins (within our documentation)
 For the sake of clarity, we need to define "GPIO pin".
 The term "GPIO pin" has many different definitions, and so please use the following 'key' when referring to pins:
->*	GPIO "software pin" (**SWPin**):
+
+*	GPIO "software pin" (**SWPin**):
 <br>This is the GPIO pin as defined in the graphical pin diagram and used for manually manipulating the value.
 <br>[e.g. pin number is the 'XX' value in /sys/class/gpio/gpioXX/direction]
 <br>The SW pin can be found on the graphical pin diagram.
 <br>NOTE: If a pin is muxed to be a GPIO, use SW Pin. If it is muxed to something other than a GPIO (UART, I2C, etc.), describe it as a SW BUS pin.
+<br><br>
 
->*	GPIO "software interface" or "software bus" (**SW BUS**):
+*	GPIO "software interface" or "software bus" (**SW BUS**):
 <br>If a pin is muxed as something other than GPIO, we need to describe it as such. Use "software interface" instead of "software pin".
 <br>[e.g. UART4, PWM3, SDA1]
 <br>The different interface types of the pins are listed on the graphical pin diagram. 
 <br><i>NOTE: Certain HW pins can have multiple software interface types, and some exact interface types even appear on multiple pins. If possible, mention either the SW or HW pin associated with the SW BUS.</i>
+<br><br>
 
-
->*	GPIO "kernel pin" (**KERPin**):
+*	GPIO "kernel pin" (**KERPin**):
 <br>This is the name of the pin as defined in the alternate pin table documentation and in the kernel source files. 
 <br>[e.g. the "CSI0\_DAT13" in '"MX6DL\_PAD\_CSI0\_DAT13\_\_UART4\_RXD,"', or the "GPIO\_1" in '"MX6DL\_PAD\_GPIO\_1\_\_PWM2\_PWMO,"'.]
 <br>The KER Pin can be found in the Alternate Pin Table, where the HW Pin will be listed under ALT5 as GPIO#\_IOxx whereby xx is the HW GPIO pin you want. <br>Look down the column, and within iMX.6, the "Pin Name" will be the KER Pin.
+<br><br>
 
->*	GPIO "hardware pin" or "physical pin" (**HWPin**):
+*	GPIO "hardware pin" or "physical pin" (**HWPin**):
 <br>This is the pin number that corresponds to the silkscreen on the board (or the graphical pin documentation). 
 <br>[e.g. D58, TX1]
 <br>The HW Pin can be found on the graphical pin diagram.
+<br><br>
 
->*	GPIO "dev pin" (**DEVPin**):
+*	GPIO "dev pin" (**DEVPin**):
 <br>This isn't really a number, but we can use this to describe the /dev/ttyXXXX file a particular SW Pin or KER Pin refers to. 
 <br>[e.g. ttymxc3, tty1]
 
@@ -76,7 +80,8 @@ DEV Pin : SW BUS : add'l conn.
 <br>*just appeared recently...out of nowhere.
 
 ###To connect: 
->Type into prompt:<br>screen /dev/tty[[whatever file it is, see above]] 115200
+Type into prompt:
+>screen /dev/tty[[whatever file it is, see above]] 115200
 <br>replace the brackets with the name of the connector
 <br>use "ls /dev/tty*" to find devices
 
@@ -86,43 +91,43 @@ DEV Pin : SW BUS : add'l conn.
 
 ###Pin Muxing
 >To change the Software Function of a GPIO pin (i.e. GPIO —> UART instead):
-<br>1) Find the architecture core platform header file and search for the KER Pin name within the file (e.g. board-mx6qd\_seco\_UDOO.h)
-<br>2) Comment out the previous definition from the "static iomux\_v3\_cfg\_t mx6sdl\_seco\_UDOO\_pads[]" method. Uncomment the mode you want instead. There are many forms of the pin in the code, so just uncomment the one you want and comment the previous pin definition.<br>NOTE: Leave only ONE uncommented!
-<br>3) If you are changing a pin from SW Pin (Direct GPIO) to a SW BUS, comment out the KER Pin entry from one of the "mx6dl\_set\_\*\_outputmode\_\*" methods below.
+
+>1. Find the architecture core platform header file and search for the KER Pin name within the file (e.g. board-mx6qd\_seco\_UDOO.h)
+2. Comment out the previous definition from the "static iomux\_v3\_cfg\_t mx6sdl\_seco\_UDOO\_pads[]" method. Uncomment the mode you want instead. There are many forms of the pin in the code, so just uncomment the one you want and comment the previous pin definition.<br>NOTE: Leave only ONE uncommented!
+3. If you are changing a pin from SW Pin (Direct GPIO) to a SW BUS, comment out the KER Pin entry from one of the "mx6dl\_set\_\*\_outputmode\_\*" methods below.
 <br>If changing from a SW BUS to a GPIO, be sure to uncomment a KER PIN entry.
 
 ###Change the startup value of a GPIO pin (input/outHigh/outLow):
->1) Open board-mx6sdl\_seco\_UDOO.h in /arch/arm/mx6 (or quad name and respective header file for that board instead)
-<br>2) Move pin definition from one method to the method you want
+>1. Open board-mx6sdl\_seco\_UDOO.h in /arch/arm/mx6 (or quad name and respective header file for that board instead)
+2. Comment out pin definition from one method, uncomment in the method you want
 <br>(e.g.) move '"MX6DL\_PAD\_GPIO\_0\_\_GPIO\_MODE,"' (including comma, excluding quotes) 
 <br>from '"static unsigned int mx6dl\_set\_in\_outputmode\_high[]"'
 <br>to '"static unsigned int mx6dl\_set\_in\_outputmode\_low[]"'
 <br>to change from default outputHigh to outoutLow on boot.
-<br>The methods are:<br>
 
->*	static unsigned int mx6dl\_set\_in\_outputmode\_high[]
+>The startup methods are:
 
->*	static unsigned int mx6dl\_set\_in\_outputmode\_low[]
-
->*	static unsigned int mx6dl\_set\_in\_inputmode[]
+>*	static unsigned int mx6dl\_set\_in\_outputmode\_high[]	-- default output, HIGH
+>*	static unsigned int mx6dl\_set\_in\_outputmode\_low[]	-- default output, LOW
+>*	static unsigned int mx6dl\_set\_in\_inputmode[]		-- default input
 
 ###Kernel Configuration
 Within the kernel source, a KER Pin name cannot just be copied and pasted into a line within the header code. 
 <br>Here is the general format for the KER Pin entries in the header source file:
->"MX6DL\_PAD\_[KER Pin]\_\_[KER Pin-specific function]"
+>"MX6DL\_PAD\_**[KER Pin]**\_\_**[KER Pin-specific function]**"
 <br>e.g. MX6DL\_PAD\_SD1\_DAT2\_\_GPIO\_1\_19,
 
 For the default startup values (GPIO-only), the format is as follows:
->"MX6DL\_PAD\_[KER Pin]\_\_GPIO\_MODE,"
+>"MX6DL\_PAD\_**[KER Pin]**\_\_GPIO\_MODE,"
 <br>e.g. MX6DL\_PAD\_SD1\_DAT2\_\_GPIO\_MODE, 
 <br>
 
 
 <br>
 ###To write to a GPIO pin:
->echo out > /sys/class/gpio/gpioxx/direction
-<br>echo 1 > /sys/class/gpio/gpioxx/value <-- high
-<br>echo 0 > /sys/class/gpio/gpioxx/value <-- low
+>1) echo out > /sys/class/gpio/gpioxx/direction
+<br>2a) echo 1 > /sys/class/gpio/gpioxx/value <-- high
+<br>2b) echo 0 > /sys/class/gpio/gpioxx/value <-- low
 <br>[where xx is the GPIO SW Pin]
 
 <br>
