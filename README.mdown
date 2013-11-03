@@ -106,7 +106,7 @@ To change the Software Function of a GPIO pin (i.e. GPIO —> UART instead):
 <br>to '"static unsigned int mx6dl\_set\_in\_outputmode\_low[]"'
 <br>to change from default outputHigh to outoutLow on boot.
 
->The startup methods are:
+The startup methods are:
 
 >*	static unsigned int mx6dl\_set\_in\_outputmode\_high[]	-- default output, HIGH
 >*	static unsigned int mx6dl\_set\_in\_outputmode\_low[]	-- default output, LOW
