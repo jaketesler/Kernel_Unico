@@ -1,4 +1,4 @@
-#UDOO KERNEL README
+#UDOO KERNEL iMX.6/SAMx3 "Cheat Sheet"
 
 To anybody reading this, these are my personal notes integrated into a README. Proceed with caution...
 <br>IMPORTANT: This fork is meant for UDOO development only. Files specific to other platforms might be missing.
