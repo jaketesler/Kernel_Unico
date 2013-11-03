@@ -2,7 +2,8 @@
 
 To anybody reading this, these are my personal notes integrated into a README. Proceed with caution...
 <br>IMPORTANT: This fork is meant for UDOO development only. Files specific to other platforms might be missing.
-
+<br><br>
+###Info:
 UDOO kernel files are mainly located in /arch/arm/mach-mx6
 <br>Files with "sdl" are Dual-Core; files with "qd" are Quad-Core. If you change something within a file it will only affect that specific core architecture platform.
 <br>To compile kernel, use custom included utility "udoo-kc"
@@ -24,7 +25,7 @@ The term "GPIO pin" has many different definitions, and so please use the follow
 <br>If a pin is muxed as something other than GPIO, we need to describe it as such. Use "software interface" instead of "software pin".
 <br>[e.g. UART4, PWM3, SDA1]
 <br>The different interface types of the pins are listed on the graphical pin diagram. 
-<br>NOTE: Certain HW pins can have multiple software interface types, and some exact interface types even appear on multiple pins. If possible, mention either the SW or HW pin associated with the SW BUS. 
+<br><i>NOTE: Certain HW pins can have multiple software interface types, and some exact interface types even appear on multiple pins. If possible, mention either the SW or HW pin associated with the SW BUS.</i>
 
 
 ><br><u>GPIO "kernel pin" (<b>KERPin</b>):</u>
@@ -66,7 +67,7 @@ Made changes to (and added file) /etc/init/ttymxc3.conf
 
 
 ## CONNECTIONS:
-DEV Pin : SMIT : add'l conn.
+DEV Pin : SW BUS : add'l conn.
 <br>ttymxc0 : UART1
 <br>ttymxc1 : UART2 : USB
 <br>ttymxc2* : ? : ?
@@ -122,8 +123,8 @@ For the default startup values (GPIO-only), the format is as follows:
 <br>[where xx is the GPIO SW Pin]
 
 <br>
-####GPIO Notes
-LED protoblock is on GPIO20 / GPIO17
+####Other Project-specific GPIO Notes
+LED protoblock is on SWpin GPIO20 / GPIO17
 <br><br>
 
 
