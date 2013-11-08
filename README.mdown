@@ -6,6 +6,7 @@ To anybody reading this, these are my personal notes integrated into a README. P
 ###Info:
 UDOO kernel files are mainly located in /arch/arm/mach-mx6
 <br>UBOOT documentation files are located in the /UDOO folder
+<br>See also u-boot-mx6 repo. 
 <br>Files with "sdl" are Dual-Core; files with "qd" are Quad-Core. If you change something within a file it will only affect that specific core architecture platform.
 <br><br>To compile the kernel, use the custom included utility "udoo-kc"
 <br>See "udoo-kc --help" for help.
