@@ -144,4 +144,4 @@ LED protoblock is on SWpin GPIO20 / GPIO17
 <br>
 ## External sources
 [UDOO Alt Pin Table](http://udoo.org/download/files/pinout/UDOO_pinout_alternate_table.pdf")
-[UDOO Graphical Pin Table](http://udoo.org/download/files/pinout/Udoo_pinout_diagram.pdf)
+<br>[UDOO Graphical Pin Table](http://udoo.org/download/files/pinout/Udoo_pinout_diagram.pdf)
