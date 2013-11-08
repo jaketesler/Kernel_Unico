@@ -56,17 +56,17 @@ As an example, SW Pin **137** is the same as HW Pin **D31** and is the same as K
 ## KERNEL File MODIFICATIONS
 Two header files in arch/arm/mach-mx6
 <br>Modified file drm.h in include/drm/
-<br>Modified '[static inline void mx6q\_seco\_UDOO\_init\_uart]' in board-mx6\_seco\_UDOO.c to include more UART ports
+<br>Modified <code>static inline void mx6q\_seco\_UDOO\_init\_uart</code> in board-mx6\_seco\_UDOO.c to include more UART ports
 <br>Removed unnecessary files (unrelated to UDOO development) from arch/arm/mach-mx6
 
 <br>
 ## SYSTEM
 Made changes to (and added file) /etc/init/ttymxc3.conf
-<br>cmd: stty to fix baud rate of ports to 9600 [sudo stty -F /dev/ttymxc3 9600]
+<br>cmd: stty to fix baud rate of ports to 9600 [<code>sudo stty -F /dev/ttymxc3 9600</code>]
 <br>modified /etc/default/console-setup to include more ttys[#]
 
 
-<br>ps -ef | grep getty [to confirm login prompt dialogs]
+	ps -ef | grep getty [to confirm login prompt dialogs]
 
 
 
@@ -81,10 +81,11 @@ DEV Pin : SW BUS : add'l conn.
 
 ###To connect: 
 Type into prompt:
->screen /dev/tty[[whatever file it is, see above]] 115200
+
+	screen /dev/tty[[whatever file it is, see above]] 115200
 
 replace the brackets with the name of the connector
-<br>use "ls /dev/tty*" to find devices
+<br>use <code>ls /dev/tty*</code> to find devices
 
 
 ##GPIOs
@@ -94,16 +95,16 @@ replace the brackets with the name of the connector
 To change the Software Function of a GPIO pin (i.e. GPIO —> UART instead):
 
 1. Find the architecture core platform header file and search for the KER Pin name within the file (e.g. board-mx6qd\_seco\_UDOO.h)
-2. Comment out the previous definition from the "static iomux\_v3\_cfg\_t mx6sdl\_seco\_UDOO\_pads[]" method. Uncomment the mode you want instead. There are many forms of the pin in the code, so just uncomment the one you want and comment the previous pin definition.<br>NOTE: Leave only ONE uncommented!
-3. If you are changing a pin from SW Pin (Direct GPIO) to a SW BUS, comment out the KER Pin entry from one of the "mx6dl\_set\_\*\_outputmode\_\*" methods below.
+2. Comment out the previous definition from the <code>static iomux\_v3\_cfg\_t mx6sdl\_seco\_UDOO\_pads[]</code> method. Uncomment the mode you want instead. There are many forms of the pin in the code, so just uncomment the one you want and comment the previous pin definition.<br>NOTE: Leave only ONE uncommented!
+3. If you are changing a pin from SW Pin (Direct GPIO) to a SW BUS, comment out the KER Pin entry from one of the <code>mx6dl\_set\_\*\_outputmode\_\*</code> methods below.
 <br>If changing from a SW BUS to a GPIO, be sure to uncomment a KER PIN entry.
 
 ###Change the startup value of a GPIO pin (input/outHigh/outLow):
 1. Open board-mx6sdl\_seco\_UDOO.h in /arch/arm/mx6 (or quad name and respective header file for that board instead)
 2. Comment out pin definition from one method, uncomment in the method you want
-<br>(e.g.) move '"MX6DL\_PAD\_GPIO\_0\_\_GPIO\_MODE,"' (including comma, excluding quotes) 
-<br>from '"static unsigned int mx6dl\_set\_in\_outputmode\_high[]"'
-<br>to '"static unsigned int mx6dl\_set\_in\_outputmode\_low[]"'
+<br>(e.g.) move <code>MX6DL\_PAD\_GPIO\_0\_\_GPIO\_MODE,</code> (including comma, excluding quotes) 
+<br>from <code>static unsigned int mx6dl\_set\_in\_outputmode\_high[]</code>
+<br>to <code>static unsigned int mx6dl\_set\_in\_outputmode\_low[]</code>
 <br>to change from default outputHigh to outoutLow on boot.
 
 The startup methods are:
@@ -126,10 +127,10 @@ For the default startup values (GPIO-only), the format is as follows:
 
 <br>
 ###To write to a GPIO pin:
->1) echo out > /sys/class/gpio/gpioxx/direction
-<br>2a) echo 1 > /sys/class/gpio/gpioxx/value <-- high
-<br>2b) echo 0 > /sys/class/gpio/gpioxx/value <-- low
-<br>[where xx is the GPIO SW Pin]
+	1) 	echo out > /sys/class/gpio/gpioxx/direction
+	2a) echo 1 > /sys/class/gpio/gpioxx/value <-- high
+	2b) echo 0 > /sys/class/gpio/gpioxx/value <-- low
+		[where xx is the GPIO SW Pin]
 
 <br>
 ####Other Project-specific GPIO Notes
