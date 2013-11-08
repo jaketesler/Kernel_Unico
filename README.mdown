@@ -33,7 +33,7 @@ From now on, please use the following naming convention (**bold**) when referrin
 
 *	GPIO "kernel pin" (**KERPin**):
 <br>This is the name of the pin as defined in the alternate pin table documentation and in the kernel source files. 
-<br>[e.g. the "CSI0\_DAT13" in '"MX6DL\_PAD\_CSI0\_DAT13\_\_UART4\_RXD,"', or the "GPIO\_1" in '"MX6DL\_PAD\_GPIO\_1\_\_PWM2\_PWMO,"'.]
+<br>[e.g. the <code>CSI0\_DAT13</code> in <code>MX6DL\_PAD\_CSI0\_DAT13\_\_UART4\_RXD,</code>, or the <code>GPIO\_1</code> in <code>MX6DL\_PAD\_GPIO\_1\_\_PWM2\_PWMO,</code>.]
 <br>The KER Pin can be found in the Alternate Pin Table, where the HW Pin will be listed under ALT5 as GPIO#\_IOxx whereby xx is the HW GPIO pin you want. <br>Look down the column, and within iMX.6, the "Pin Name" will be the KER Pin.
 <br>
 
@@ -51,7 +51,7 @@ From now on, please use the following naming convention (**bold**) when referrin
 
 As an example, SW Pin **137** is the same as HW Pin **D31** and is the same as KER Pin **DISP0\_DAT10**.
 <br>Alternatively, SW Pin **159**, SW BUS **UART4RX**, KER Pin **CSI0\_DAT13**, HW Pin **RX1**, and DEV Pin **ttymxc3** all correspond to the same GPIO 'pin'.
-
+<br><br>**Note: A LOT of the pin definitions have a comma at the end of the line. Don't forget the comma!**
 
 <br>
 ## KERNEL File MODIFICATIONS
@@ -66,6 +66,7 @@ Made changes to (and added file) /etc/init/ttymxc3.conf
 <br>cmd: stty to fix baud rate of ports to 9600 [<code>sudo stty -F /dev/ttymxc3 9600</code>]
 <br>modified /etc/default/console-setup to include more ttys[#]
 
+Getty confirmation code:
 
 	ps -ef | grep getty [to confirm login prompt dialogs]
 
@@ -103,27 +104,28 @@ To change the Software Function of a GPIO pin (i.e. GPIO —> UART instead):
 ###Change the startup value of a GPIO pin (input/outHigh/outLow):
 1. Open board-mx6sdl\_seco\_UDOO.h in /arch/arm/mx6 (or quad name and respective header file for that board instead)
 2. Comment out pin definition from one method, uncomment in the method you want
-<br>(e.g.) move <code>MX6DL\_PAD\_GPIO\_0\_\_GPIO\_MODE,</code> (including comma, excluding quotes) 
+<br>(e.g.) move <code>MX6DL\_PAD\_GPIO\_0\_\_GPIO\_MODE,</code> (including comma) 
 <br>from <code>static unsigned int mx6dl\_set\_in\_outputmode\_high[]</code>
 <br>to <code>static unsigned int mx6dl\_set\_in\_outputmode\_low[]</code>
 <br>to change from default outputHigh to outoutLow on boot.
 
 The startup methods are:
 
->*	static unsigned int mx6dl\_set\_in\_outputmode\_high[]	-- default output, HIGH
->*	static unsigned int mx6dl\_set\_in\_outputmode\_low[]	-- default output, LOW
->*	static unsigned int mx6dl\_set\_in\_inputmode[]		-- default input
+	static unsigned int mx6dl_set_in_outputmode_high[]	-- default output, HIGH
+	static unsigned int mx6dl_set_in_outputmode_low[]	-- default output, LOW
+	static unsigned int mx6dl_set_in_inputmode[]		-- default input
 
 ###Kernel Configuration
 Within the kernel source, a KER Pin name cannot just be copied and pasted into a line within the header code. 
 <br>Here is the general format for the KER Pin entries in the header source file:
->"MX6DL\_PAD\_**[KER Pin]**\_\_**[KER Pin-specific function]**"
-<br>e.g. MX6DL\_PAD\_SD1\_DAT2\_\_GPIO\_1\_19,
+	
+	MX6DL_PAD_**[KER Pin]**__**[KER Pin-specific function]**,
+	e.g. [MX6DL_PAD_SD1_DAT2__GPIO_1_19,]
 
 For the default startup values (GPIO-only), the format is as follows:
->"MX6DL\_PAD\_**[KER Pin]**\_\_GPIO\_MODE,"
-<br>e.g. MX6DL\_PAD\_SD1\_DAT2\_\_GPIO\_MODE, 
-<br>
+	
+	MX6DL_PAD_**[KER Pin]**__GPIO_MODE,
+	[e.g. MX6DL_PAD_SD1_DAT2__GPIO_MODE,]
 
 
 <br>
