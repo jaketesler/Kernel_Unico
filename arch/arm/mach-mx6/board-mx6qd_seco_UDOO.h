@@ -1,6 +1,7 @@
 #include <mach/iomux-mx6q.h>
 
 #define INTERNAL_SERIAL_ENABLED
+#define REVD
 
 /******************************************************************
 *	 CUSTOM MACRO DEFINITION
@@ -241,7 +242,7 @@ static iomux_v3_cfg_t mx6qd_seco_UDOO_pads[] = {
 	*/
 
 	//MX6Q_PAD_CSI0_DAT11__GPIO_5_29,						// pin 0
-		MX6DL_PAD_CSI0_DAT11__UART1_RXD,
+		MX6Q_PAD_CSI0_DAT11__UART1_RXD,
 	//MX6Q_PAD_CSI0_DAT10__GPIO_5_28,						// pin 1
 		MX6Q_PAD_CSI0_DAT10__UART1_TXD,
     MX6Q_PAD_SD1_CLK__GPIO_1_20,							// pin 2 
@@ -286,6 +287,7 @@ static iomux_v3_cfg_t mx6qd_seco_UDOO_pads[] = {
 	MX6Q_PAD_SD4_DAT0__GPIO_2_8,							// pin 13
 
 	MX6Q_PAD_CSI0_DAT4__GPIO_5_22,							// pin 14
+	
 	///MX6Q_PAD_CSI0_DAT16__GPIO_6_2,						// pin 15
 		MX6Q_PAD_CSI0_DAT16__UART4_RTS,
 	//MX6Q_PAD_CSI0_DAT14__GPIO_6_0,						// pin 16
@@ -296,6 +298,7 @@ static iomux_v3_cfg_t mx6qd_seco_UDOO_pads[] = {
 		MX6Q_PAD_CSI0_DAT12__UART4_TXD,
 	//MX6Q_PAD_CSI0_DAT13__GPIO_5_31,						// pin 19
 		MX6Q_PAD_CSI0_DAT13__UART4_RXD,
+	
 	MX6Q_PAD_EIM_D28__GPIO_3_28,							// pin 20
 		// MX6Q_PAD_EIM_D28__I2C1_SDA,
 	MX6Q_PAD_EIM_D21__GPIO_3_21,							// pin 21
@@ -351,11 +354,11 @@ static iomux_v3_cfg_t mx6qd_seco_UDOO_pads[] = {
 		MX6Q_PAD_EIM_D25__UART3_RXD,
 		
 	MX6Q_PAD_KEY_ROW1__GPIO_4_9,							// pin 48
-
 		// MX6Q_PAD_KEY_ROW1__UART5_RXD,
 	MX6Q_PAD_KEY_COL1__GPIO_4_8,							// pin 49
 		// MX6Q_PAD_KEY_COL1__UART5_TXD,      
 		// MX6Q_PAD_KEY_COL1__USDHC1_VSELECT,
+	
 	MX6Q_PAD_EIM_OE__GPIO_2_25,								// pin 50
 		// MX6Q_PAD_EIM_OE__ECSPI2_MISO,
 	MX6Q_PAD_EIM_CS1__GPIO_2_24,							// pin 51
@@ -376,12 +379,18 @@ static iomux_v3_cfg_t mx6qd_seco_UDOO_pads[] = {
 
 static unsigned int mx6q_set_in_outputmode_low[] = {
 	MX6Q_PAD_SD2_DAT0__GPIO_MODE,  
-	MX6Q_PAD_GPIO_16__GPIO_MODE,
+	//MX6Q_PAD_GPIO_16__GPIO_MODE,
 	MX6Q_PAD_CSI0_DAT19__GPIO_MODE,
 	MX6Q_PAD_EIM_A19__GPIO_MODE,	
 	MX6Q_PAD_SD4_DAT7__GPIO_MODE,
+	
 	MX6Q_PAD_CSIO_DAT18__GPIO_MODE,
+	
 	MX6Q_PAD_EIM_WAIT__GPIO_MODE,	
+	
+	MX6Q_PAD_SD1_DAT1__GPIO_MODE, //LED GPIO17
+	MX6Q_PAD_SD1_CLK__GPIO_MODE,  //LED GPIO20
+	
 };
 
 static unsigned int mx6q_set_in_outputmode_high[] = {
@@ -389,6 +398,7 @@ static unsigned int mx6q_set_in_outputmode_high[] = {
 	MX6Q_PAD_NANDF_D5__GPIO_MODE,
 	MX6Q_PAD_EIM_EB3__GPIO_MODE,
 	MX6Q_PAD_NANDF_CS0__GPIO_MODE,
+	MX6Q_PAD_GPIO_16__GPIO_MODE,
 };
 
 static unsigned int mx6q_set_in_inputmode[] = {	
@@ -408,10 +418,10 @@ static unsigned int mx6q_set_in_inputmode[] = {
 	//MX6Q_PAD_CSI0_DAT10__GPIO_MODE,
 	//MX6Q_PAD_CSI0_DAT11__GPIO_MODE,	
 
-	MX6Q_PAD_SD1_CLK__GPIO_MODE,	
+	//MX6Q_PAD_SD1_CLK__GPIO_MODE,	
 	MX6Q_PAD_SD1_DAT0__GPIO_MODE,  
 	
-	MX6Q_PAD_SD1_DAT1__GPIO_MODE,   		
+	//MX6Q_PAD_SD1_DAT1__GPIO_MODE,   		
 	MX6Q_PAD_SD1_CMD__GPIO_MODE,   		
 	MX6Q_PAD_SD4_DAT1__GPIO_MODE,   			
 	MX6Q_PAD_SD4_DAT2__GPIO_MODE,
