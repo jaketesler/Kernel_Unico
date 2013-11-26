@@ -138,6 +138,8 @@ For the default startup values (GPIO-only), the format is as follows:
 <br>
 ####Other Project-specific GPIO Notes
 LED protoblock is on SWpin GPIO20 / GPIO17
+<br>To regenerate a modules.dep file when a new kernel is uploaded, use the following command: 
+	 sudo depmod -a 3.0.35 [or other version of kernel]
 <br><br>
 
 
