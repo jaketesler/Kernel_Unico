@@ -6,10 +6,9 @@
 
 #must be placed in "kernel" directory
 
-echo -e "UDOO Kernel Compiler v0.2\n"
+echo -e "UDOO Kernel Compiler v0.5\n"
 sleep 2
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
 
 case $1 in 
 	
@@ -18,15 +17,15 @@ case $1 in
 		#cd $DIR/kernel
 		echo -e "NO MODULES\n\n"
 		echo -e "Removing old files...\n"
-		rm ./arch/arm/boot/*Image*
-		rm ./arch/arm/boot/compressed/vmlinux
-		rm ./arch/arm/boot/compressed/vmlinux.lds
+		rm ./arch/arm/boot/*Image* || true
+		rm ./arch/arm/boot/compressed/vmlinux || true
+		rm ./arch/arm/boot/compressed/vmlinux.lds || true
 		echo -e "\nCleaning...\n"
 		make clean
 		echo -e "\nConfiguration...\n"
 		make ARCH=arm UDOO_defconfig
 		echo -e "\nBuilding uImage...\n"
-		make -j4 CROSS_COMPILE=./opt/local/bin/arm-none-eabi- ARCH=arm uImage
+		make -j4 CROSS_COMPILE=/opt/local/bin/arm-none-eabi- ARCH=arm uImage
 		echo -e "\nFinished!"
 		;;
 		
@@ -37,14 +36,15 @@ case $1 in
 			--no-modules - Don't compile modules.\n
 			--help - View this help screen.\n"
 		;;
-		
-	*)
+	
+	
+	--old-compile)
 		set -e
 		#cd $DIR/kernel
 		echo -e "Removing old files...\n"
-		rm ./arch/arm/boot/*Image*
-		rm ./arch/arm/boot/compressed/vmlinux
-		rm ./arch/arm/boot/compressed/vmlinux.lds
+		rm ./arch/arm/boot/*Image* || true
+		rm ./arch/arm/boot/compressed/vmlinux || true
+		rm ./arch/arm/boot/compressed/vmlinux.lds || true
 		echo -e "\nCleaning...\n"
 		make clean
 		echo -e "\nConfiguration...\n"
@@ -55,6 +55,26 @@ case $1 in
 		make -j4 CROSS_COMPILE=./opt/local/bin/arm-none-eabi- ARCH=arm modules
 		echo -e "\nInstalling Modules...\n"
 		make modules_install INSTALL_MOD_PATH=. CROSS_COMPILE=./opt/local/bin/arm-none-eabi- ARCH=arm
+		echo -e "\nFinished!"
+		;;
+		
+	*)
+		set -e
+		#cd $DIR/kernel
+		echo -e "Removing old files...\n"
+		rm ./arch/arm/boot/*Image* || true
+		rm ./arch/arm/boot/compressed/vmlinux || true
+		rm ./arch/arm/boot/compressed/vmlinux.lds || true
+		echo -e "\nCleaning...\n"
+		make clean
+		echo -e "\nConfiguration...\n"
+		make ARCH=arm UDOO_defconfig
+		echo -e "\nBuilding uImage...\n"
+		make -j4 CROSS_COMPILE=/opt/local/bin/arm-none-eabi- ARCH=arm uImage
+		echo -e "\nBuilding Modules...\n"
+		make -j4 CROSS_COMPILE=/opt/local/bin/arm-none-eabi- ARCH=arm modules
+		echo -e "\nInstalling Modules...\n"
+		make modules_install INSTALL_MOD_PATH=. CROSS_COMPILE=/opt/local/bin/arm-none-eabi- ARCH=arm
 		echo -e "\nFinished!"
 		;;
 		
