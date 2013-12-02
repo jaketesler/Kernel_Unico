@@ -962,10 +962,10 @@ static void __init mx6_seco_UDOO_timer_init(void) {
 #endif
 	mx6_clocks_init(32768, 24000000, 0, 0);
 
-	uart_clk = clk_get_sys("imx-uart.0", NULL);
-	early_console_setup(UART2_BASE_ADDR, uart_clk);
-	//uart_clk = clk_get_sys("imx-uart.3", NULL);
-	//early_console_setup(UART4_BASE_ADDR, uart_clk);
+	//uart_clk = clk_get_sys("imx-uart.0", NULL);
+	//early_console_setup(UART2_BASE_ADDR, uart_clk);
+	uart_clk = clk_get_sys("imx-uart.3", NULL);
+	early_console_setup(UART4_BASE_ADDR, uart_clk);
 }
 
 static struct sys_timer mx6_seco_UDOO_timer = {
