@@ -12,6 +12,9 @@ To anybody reading this, these are my personal notes integrated into a README. P
 <br>See "udoo-kc --help" for help.
 <br>
 <br>
+**Jake's really dumb solution to change UARTs: To change default UARTs, do a global search for UARTx and ttymxc(x-1) and imx.uart(x-1).**
+<br>
+<br>
 ###NOTE: For this document, UDOO Dual-Core (sdl) is used as the example. To switch from Dual- to Quad-Core, just replace (sdl) with (qd) or (Q) within files as needed.
 <br>
 ##GPIO Pin Reference
