@@ -153,56 +153,88 @@ LED protoblock is on SWpin GPIO20 / GPIO17
 <br><br><a name="cheatsheet"></a>
 #Kernel File/Folder Cheat Sheet
 ###This section lists significant files and what they do, or what to do with them. I have tried to indicate what files I have changed. 
-*	/arch/arm/mach-mx6/board-mx6\_seco_UDOO.c
-	*	change the UART for kernel-side (userspace) debug after bootconsole deactivates
-<br><br>
+Hierarchy:
 
-*	/arch/arm/mach-mx6/board-mx6q_arm2.c
-	*	possibly the same as above, but was defaulted to our choice, so never tested a switch
-<br><br>
+*	arch/ [Main architecture folder]
+	*	arm/ [Main arm architecture folder]
+		*	mach-mx6/	[Freescale i.MX6 Platform]
+		*	plat-mxc/	[Additional MX Platform files]
+		*	configs/	[Specific processor or system build configs]
+		*	board-mx6\_greymatter_backup/
+			*	Backup folder for unnecessary (but in-family) processor header files
+			*	Calculated using the ".o generated product rule"
+*	kernel/		[Internal kernel tools/utilities source code]
+*	drivers/	[Drivers/modules for the hardware]
+	*	tty/	[Universal tty driver source folder]
+		*	serial/	[Creates serial environment for kernel]
 
-*	/arch/arm/mach-mx6/board-mx6sdl\_seco_UDOO.h
-	*	(DUAL-CORE) Enable/disable/reconfigure specific GPIO pins
-<br><br>
+		
 
-*	/arch/arm/mach-mx6/board-mx6qd\_seco_UDOO.h
-	*	(QUAD-CORE) Enable/disable/reconfigure specific GPIO pins
-<br><br>
-
-*	/arch/arm/mach-mx6/serial.h
-	*	Can change low-level (hardware) attributes of the serial ports (physical UART)
-<br><br>
-
-*	/arch/arm/plat-mxc/devices/platform-imx-uart.c
-	*	Generates the unused (but still necessary) imx-uart.# file within the /sys/class/ region.
-<br><br>
-
-*	/arch/arm/configs/UDOO\_defconfig
-	*	change the boot command line to reflect chosen tty
-<br><br>
-
-*	/arch/arm/configs/imx6_defconfig
-	*	Probable source for the UDOO_defconfig file, but probably doesn't do anything
-<br><br>
-
-*	/arch/arm/board-mx6\_greymatter_backup/
-	*	Backup folder for unnecessary (but family) processor header files
-	*	Calculated using the ".o product rule"
-<br><br>
+<br>
+		
+Files:		
 	
-*	/arch/arm/plat-mxc/include/mach/mx6.h
-	*	Can be used to calculate the exact memory locations of the UARTs/ttys
-<br><br>
-	
-*	/drivers/tty
-	*	This is the universal tty source folder
-<br><br>
-	
-*	/kernel/kernel/printk.c
-	*	boot sequence file
-	*	switches over bootconsole to userspace console
-<br><br>
+*	/arch/
+	*	arm/
+		*	mach-mx6/
+			*	board-mx6sdl\_seco_UDOO.h
+				*	(DUAL-CORE) Enable/disable/reconfigure specific GPIO pins
+			<br><br>
 
-*	/kernel/drivers/tty/serial/mxc\_uart_early.c
-	*	Starts early kernel (boot)console
+			*	board-mx6qd\_seco_UDOO.h
+				*	(QUAD-CORE) Enable/disable/reconfigure specific GPIO pins
+			<br><br>
+			
+			*	board-mx6\_seco_UDOO.c
+				*	change the UART for kernel-side (userspace) debug after bootconsole deactivates
+			<br><br>
 
+			*	board-mx6q_arm2.c
+				*	possibly the same as above, but was defaulted to our choice, so never tested a switch
+			<br><br>
+			
+			*	serial.h
+				*	Can change low-level (hardware) attributes of the serial ports (physical UART)
+			<br><br>
+
+		*	plat-mxc/
+			*	devices/
+				*	platform-imx-uart.c
+					*	Generates the unused (but still necessary) imx-uart.# 
+					file within the /sys/class/ region.
+				<br><br>
+					
+			*	include/
+				*	mach/
+					*	mx6.h
+						*	Can be used to calculate the exact memory locations of the UARTs/ttys
+							<br><br>
+
+		*	configs/
+			*	UDOO\_defconfig
+				*	change the boot command line to reflect chosen tty
+				<br><br>
+
+			*	imx6_defconfig
+				*	Probable source for the UDOO_defconfig file, but probably doesn't do anything
+				<br><br>
+	
+
+*	/kernel/
+	*	printk.c
+		*	boot sequence file
+		*	switches over bootconsole to userspace console
+		<br><br>
+
+*	/drivers/
+	*	misc/
+		*	udoo_ard.c
+			*	This is the UDOO kernel file for programming the SAMx8E Arduino Due chip
+	*	tty/
+		*	serial/
+			*	mxc\_uart_early.c
+				*	Starts early kernel (boot)console
+				<br><br>
+
+*	**udoo-kc**
+	*	Custom kernel compiling utility
