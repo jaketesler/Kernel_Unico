@@ -21,29 +21,29 @@ To anybody reading this, these are my personal notes integrated into a README. P
 From now on, please use the following naming convention (**bold**) when referring to UDOO or GPIO pins:
 
 *	GPIO "software pin" (**SWPin**):
-<br>This is the GPIO pin as defined in the graphical pin diagram and used for manually manipulating the value.
+<br>This is the GPIO pin as defined in the [UDOO graphical pin diagram, or GPD][graphpin] and used for manually manipulating the value.
 <br>[e.g. pin number is the 'XX' value in /sys/class/gpio/gpioXX/direction]
-<br>The SW pin can be found on the graphical pin diagram.
+<br>The SW pin can be found on the [GPD][graphpin].
 <br>NOTE: If a pin is muxed to be a GPIO, use SW Pin. If it is muxed to something other than a GPIO (UART, I2C, etc.), describe it as a SW BUS pin.
 <br>
 
 *	GPIO "software interface" or "software bus" (**SW BUS**):
 <br>If a pin is muxed as something other than GPIO, we need to describe it as such. Use "software interface" instead of "software pin".
 <br>[e.g. UART4, PWM3, SDA1]
-<br>The different interface types of the pins are listed on the graphical pin diagram. 
+<br>The different interface types of the pins are listed on the [GPD][graphpin]. 
 <br><i>NOTE: Certain HW pins can have multiple software interface types, and some exact interface types even appear on multiple pins. If possible, mention either the SW or HW pin associated with the SW BUS.</i>
 <br>
 
 *	GPIO "kernel pin" (**KERPin**):
-<br>This is the name of the pin as defined in the alternate pin table documentation and in the kernel source files. 
+<br>This is the name of the pin as defined in the [UDOO alternate pin table, or APT][altpin] documentation and in the kernel source files. 
 <br>[e.g. the `CSI0\_DAT13` in `MX6DL\_PAD\_CSI0\_DAT13\_\_UART4\_RXD,`, or the `GPIO\_1` in `MX6DL\_PAD\_GPIO\_1\_\_PWM2\_PWMO,`.]
-<br>The KER Pin can be found in the Alternate Pin Table, where the HW Pin will be listed under ALT5 as GPIO#\_IOxx whereby xx is the HW GPIO pin you want. <br>Look down the column, and within iMX.6, the "Pin Name" will be the KER Pin.
+<br>The KER Pin can be found in the [APT][altpin], where the HW Pin will be listed under ALT5 as GPIO#\_IOxx whereby xx is the HW GPIO pin you want. <br>Look down the column, and within iMX.6, the "Pin Name" will be the KER Pin.
 <br>
 
 *	GPIO "hardware pin" or "physical pin" (**HWPin**):
-<br>This is the pin number that corresponds to the silkscreen on the board (or the graphical pin documentation). 
+<br>This is the pin number that corresponds to the silkscreen on the board (or on the [GPD][graphpin]). 
 <br>[e.g. D58, TX1]
-<br>The HW Pin can be found on the graphical pin diagram.
+<br>The HW Pin can be found on the [GPD][graphpin].
 <br>
 
 *	GPIO "dev pin" (**DEVPin**):
@@ -148,7 +148,10 @@ LED protoblock is on SWpin GPIO20 / GPIO17
 <br>
 ## External sources
 [UDOO Alt Pin Table](http://udoo.org/download/files/pinout/UDOO_pinout_alternate_table.pdf")
-<br>[UDOO Graphical Pin Table](http://udoo.org/download/files/pinout/Udoo_pinout_diagram.pdf)
+<br>[UDOO Graphical Pin Table][graphpin]
+
+[altpin]: http://udoo.org/download/files/pinout/UDOO_pinout_alternate_table.pdf "UDOO Alternate Pin Table"
+[graphpin]: http://udoo.org/download/files/pinout/Udoo_pinout_diagram.pdf "UDOO Graphical Pin Table"
 
 <br><br><a name="cheatsheet"></a>
 #Kernel File/Folder Cheat Sheet
