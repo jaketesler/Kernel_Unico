@@ -4,7 +4,7 @@ To anybody reading this, these are my personal notes integrated into a README. P
 <br>IMPORTANT: This fork is meant for UDOO development only. Files specific to other platforms might be missing.
 <br><br>
 ###Info:
-UDOO kernel files are mainly located in /arch/arm/mach-mx6
+<br>Please see the [File/Folder Cheat Sheet](#cheetsheet) section for details.
 <br>UBOOT documentation files are located in the /UDOO folder
 <br>See also u-boot-mx6 repo. 
 <br>Files with "sdl" are Dual-Core; files with "qd" are Quad-Core. If you change something within a file it will only affect that specific core architecture platform.
@@ -142,8 +142,64 @@ LED protoblock is on SWpin GPIO20 / GPIO17
 	 sudo depmod -a 3.0.35 [or other version of kernel]
 <br><br>
 
-
 <br>
 ## External sources
 [UDOO Alt Pin Table](http://udoo.org/download/files/pinout/UDOO_pinout_alternate_table.pdf")
 <br>[UDOO Graphical Pin Table](http://udoo.org/download/files/pinout/Udoo_pinout_diagram.pdf)
+
+<br><br><a name="cheatsheet"></a>
+#Kernel File/Folder Cheat Sheet
+###This section lists significant files and what they do, or what to do with them. I have tried to indicate what files I have changed. 
+*	/arch/arm/mach-mx6/board-mx6\_seco_UDOO.c
+	*	change the UART for kernel-side (userspace) debug after bootconsole deactivates
+<br><br>
+
+*	/arch/arm/mach-mx6/board-mx6q_arm2.c
+	*	possibly the same as above, but was defaulted to our choice, so never tested a switch
+<br><br>
+
+*	/arch/arm/mach-mx6/board-mx6sdl\_seco_UDOO.h
+	*	(DUAL-CORE) Enable/disable/reconfigure specific GPIO pins
+<br><br>
+
+*	/arch/arm/mach-mx6/board-mx6qd\_seco_UDOO.h
+	*	(QUAD-CORE) Enable/disable/reconfigure specific GPIO pins
+<br><br>
+
+*	/arch/arm/mach-mx6/serial.h
+	*	Can change low-level (hardware) attributes of the serial ports (physical UART)
+<br><br>
+
+*	/arch/arm/plat-mxc/devices/platform-imx-uart.c
+	*	Generates the unused (but still necessary) imx-uart.# file within the /sys/class/ region.
+<br><br>
+
+*	/arch/arm/configs/UDOO\_defconfig
+	*	change the boot command line to reflect chosen tty
+<br><br>
+
+*	/arch/arm/configs/imx6_defconfig
+	*	Probable source for the UDOO_defconfig file, but probably doesn't do anything
+<br><br>
+
+*	/arch/arm/board-mx6\_greymatter_backup/
+	*	Backup folder for unnecessary (but family) processor header files
+	*	Calculated using the ".o product rule"
+<br><br>
+	
+*	/arch/arm/plat-mxc/include/mach/mx6.h
+	*	Can be used to calculate the exact memory locations of the UARTs/ttys
+<br><br>
+	
+*	/drivers/tty
+	*	This is the universal tty source folder
+<br><br>
+	
+*	/kernel/kernel/printk.c
+	*	boot sequence file
+	*	switches over bootconsole to userspace console
+<br><br>
+
+*	/kernel/drivers/tty/serial/mxc\_uart_early.c
+	*	Starts early kernel (boot)console
+
