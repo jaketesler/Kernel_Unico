@@ -147,15 +147,20 @@ LED protoblock is on SWpin GPIO20 / GPIO17
 
 <br>
 ## External sources
-[UDOO Alt Pin Table](http://udoo.org/download/files/pinout/UDOO_pinout_alternate_table.pdf")
-<br>[UDOO Graphical Pin Table][graphpin]
+[UDOO Alt Pin Table](http://udoo.org/download/files/pinout/UDOO_pinout_alternate_table.pdf)
+<br>[UDOO Graphical Pin Table](http://udoo.org/download/files/pinout/Udoo_pinout_diagram.pdf)
+[UDOO.com][udoowebsite]
 
 [altpin]: http://udoo.org/download/files/pinout/UDOO_pinout_alternate_table.pdf "UDOO Alternate Pin Table"
 [graphpin]: http://udoo.org/download/files/pinout/Udoo_pinout_diagram.pdf "UDOO Graphical Pin Table"
+[udoowebsite]: http://udoo.org/ "www.udoo.org"
 
 <br><br><a name="cheatsheet"></a>
 #Kernel File/Folder Cheat Sheet
 ###This section lists significant files and what they do, or what to do with them. I have tried to indicate what files I have changed. 
+<br>
+###To change from one serial (radio) UART/tty to a different one, please modify files marked with a __**(U)**__ in the manner noted. Be sure to do this here and for the U-BOOT source as well, as modifying one source (e.g. kernel) and compiling without changing the other (e.g. U-BOOT) will crash the UDOO. <br>I have tried to be as specific as possible. When modifying, please try to update the comments as well.<br>Also, keep in mind that UART4==ttymxc3==imx-uart.3, i.e. UART(#)==ttymxc(#-1)==imx-uart.(#-1).
+
 Hierarchy:
 
 *	arch/ [Main architecture folder]
@@ -190,6 +195,7 @@ Files:
 			
 			*	board-mx6\_seco_UDOO.c
 				*	change the UART for kernel-side (userspace) debug after bootconsole deactivates
+				*	(U) [Modify lines 971 and 972 to reflect new UART.]
 			<br><br>
 
 			*	board-mx6q_arm2.c
@@ -216,6 +222,7 @@ Files:
 		*	configs/
 			*	UDOO\_defconfig
 				*	change the boot command line to reflect chosen tty
+				*	(U) Modify line 483 to reflect new tty
 				<br><br>
 
 			*	imx6_defconfig
