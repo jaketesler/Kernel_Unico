@@ -7,7 +7,7 @@
 
 #define INTERNAL_SERIAL_ENABLED
 
-#define REVD //##added
+//#define REVD //##added
 
 
 /******************************************************************
@@ -57,7 +57,7 @@
 #define MX6DL_PAD_CSIO_DAT17__GPIO_MODE			IMX_GPIO_NR(6, 3)  
 #define MX6DL_PAD_NANDF_D4__GPIO_MODE			IMX_GPIO_NR(2, 4)  
 #define MX6DL_PAD_EIM_A19__GPIO_MODE			IMX_GPIO_NR(2, 19) 
-#define MX6DL_PAD_SD2_CMD__GPIO_MODE 			IMX_GPIO_NR(1, 11)
+#define MX6DL_PAD_SD2_CMD__GPIO_MODE 			IMX_GPIO_NR(1, 11) //unique to DLCore
 
 #define MX6DL_PAD_KEY_ROW0__GPIO_MODE			IMX_GPIO_NR(4, 7)
 #define MX6DL_PAD_KEY_COL0__GPIO_MODE			IMX_GPIO_NR(4, 6)
@@ -89,8 +89,8 @@
 #define	MX6DL_PAD_CSI0_DAT14__GPIO_MODE   		IMX_GPIO_NR(6, 0)
 #define	MX6DL_PAD_CSI0_DAT16__GPIO_MODE   		IMX_GPIO_NR(6, 2)	
 #define	MX6DL_PAD_CSI0_DAT4__GPIO_MODE   		IMX_GPIO_NR(5, 22)
-#define	MX6DL_PAD_DISP0_DAT4__GPIO_MODE   		IMX_GPIO_NR(4, 25)
-#define	MX6DL_PAD_DISP0_DAT5__GPIO_MODE   		IMX_GPIO_NR(4, 26)
+#define	MX6DL_PAD_DISP0_DAT4__GPIO_MODE   		IMX_GPIO_NR(4, 25) //unique
+#define	MX6DL_PAD_DISP0_DAT5__GPIO_MODE   		IMX_GPIO_NR(4, 26)	//unique
 #define	MX6DL_PAD_DISP0_DAT6__GPIO_MODE   		IMX_GPIO_NR(4, 27)
 #define	MX6DL_PAD_DISP0_DAT7__GPIO_MODE   		IMX_GPIO_NR(4, 28)
 #define	MX6DL_PAD_DISP0_DAT8__GPIO_MODE  	 	IMX_GPIO_NR(4, 29)
@@ -184,9 +184,8 @@ static iomux_v3_cfg_t mx6sdl_seco_UDOO_pads[] = {
 	MX6DL_PAD_EIM_EB1__WEIM_WEIM_EB_1,			//  for CPLD logic
       
     MX6DL_PAD_EIM_RW__WEIM_WEIM_RW,				//  for CPLD logic
-	MX6DL_PAD_EIM_OE__WEIM_WEIM_OE,				//  for CPLD logic
+	MX6DL_PAD_EIM_OE__WEIM_WEIM_OE,				//  for CPLD logic		//unique
 	MX6DL_PAD_EIM_LBA__WEIM_WEIM_LBA,			//  for CPLD logic
-       
     MX6DL_PAD_EIM_DA0__WEIM_WEIM_DA_A_0,			//  for CPLD logic
 	MX6DL_PAD_EIM_DA1__WEIM_WEIM_DA_A_1,			//  for CPLD logic
 	MX6DL_PAD_EIM_DA2__WEIM_WEIM_DA_A_2,			//  for CPLD logic
@@ -206,7 +205,7 @@ static iomux_v3_cfg_t mx6sdl_seco_UDOO_pads[] = {
         
         /* GPIO2 */ 
 	MX6DL_PAD_EIM_A18__GPIO_2_20,				//  for CPLD logic
-	MX6DL_PAD_EIM_A19__GPIO_2_19,				//  for CPLD logic
+	MX6DL_PAD_EIM_A19__GPIO_2_19,				//  for CPLD logic		//unique
 	MX6DL_PAD_EIM_A20__GPIO_2_18,				//	for CPLD logic
 	MX6DL_PAD_EIM_A21__GPIO_2_17,				//	for CPLD logic
 	MX6DL_PAD_EIM_A22__GPIO_2_16,				//	for CPLD logic
@@ -279,6 +278,12 @@ static iomux_v3_cfg_t mx6sdl_seco_UDOO_pads[] = {
 	*	external pinmuxing
 	*
 	*/
+	
+	//MX6DL_PAD_CSI0_DAT11__GPIO_5_29,						// pin 0
+		MX6DL_PAD_CSI0_DAT11__UART1_RXD,
+	//MX6DL_PAD_CSI0_DAT10__GPIO_5_28,						// pin 1
+		MX6DL_PAD_CSI0_DAT10__UART1_TXD,
+		
 #ifdef REVB
 	MX6DL_PAD_DISP0_DAT4__GPIO_4_25,
 	MX6DL_PAD_DISP0_DAT5__GPIO_4_26,
@@ -292,12 +297,7 @@ static iomux_v3_cfg_t mx6sdl_seco_UDOO_pads[] = {
 		// MX6DL_PAD_SD1_DAT1__ECSPI5_MISO, 
 #endif
 
-	//MX6DL_PAD_CSI0_DAT11__GPIO_5_29,						// pin 0
-		MX6DL_PAD_CSI0_DAT11__UART1_RXD,
-	//MX6DL_PAD_CSI0_DAT10__GPIO_5_28,						// pin 1
-		MX6DL_PAD_CSI0_DAT10__UART1_TXD,
 	MX6DL_PAD_SD1_DAT1__GPIO_1_17,							// pin 4
-
 		// MX6DL_PAD_SD1_DAT1__USDHC1_DAT1,             
 		// MX6DL_PAD_SD1_DAT1__PWM3_PWMO,
 		// MX6DL_PAD_SD1_DAT1__ECSPI5_SS0,
@@ -397,10 +397,10 @@ static iomux_v3_cfg_t mx6sdl_seco_UDOO_pads[] = {
 	//MX6DL_PAD_EIM_D25__GPIO_3_25,							// pin 47
 		MX6DL_PAD_EIM_D25__UART3_RXD,
 	
-	MX6DL_PAD_KEY_ROW1__GPIO_4_9,							// pin 48
-		// MX6DL_PAD_KEY_ROW1__UART5_RXD,
-	MX6DL_PAD_KEY_COL1__GPIO_4_8,							// pin 49
-		// MX6DL_PAD_KEY_COL1__UART5_TXD,      
+	//MX6DL_PAD_KEY_ROW1__GPIO_4_9,							// pin 48
+		MX6DL_PAD_KEY_ROW1__UART5_RXD,
+	//MX6DL_PAD_KEY_COL1__GPIO_4_8,							// pin 49
+		MX6DL_PAD_KEY_COL1__UART5_TXD,      
 		// MX6DL_PAD_KEY_COL1__USDHC1_VSELECT,
 	
 	MX6DL_PAD_EIM_OE__GPIO_2_25,							// pin 50
@@ -415,10 +415,10 @@ static iomux_v3_cfg_t mx6sdl_seco_UDOO_pads[] = {
 		 MX6DL_PAD_EIM_D24__UART3_TXD,  
 		// MX6DL_PAD_EIM_D24__ECSPI1_SS2,
 
-	MX6DL_PAD_GPIO_7__GPIO_1_7,								// cantx
-		// MX6Q_PAD_GPIO_7__CAN1_TXCAN,
-	MX6DL_PAD_GPIO_8__GPIO_1_8,								// canrx
-		// MX6Q_PAD_GPIO_8__CAN1_RXCAN,
+	// MX6DL_PAD_GPIO_7__GPIO_1_7,								// can tx
+		MX6Q_PAD_GPIO_7__CAN1_TXCAN,
+	///MX6DL_PAD_GPIO_8__GPIO_1_8,								// can rx
+		MX6Q_PAD_GPIO_8__CAN1_RXCAN,
 };
 
 static unsigned int mx6dl_set_in_outputmode_low[] = {

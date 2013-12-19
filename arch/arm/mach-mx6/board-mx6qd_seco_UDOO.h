@@ -1,7 +1,7 @@
 #include <mach/iomux-mx6q.h>
 
 #define INTERNAL_SERIAL_ENABLED
-#define REVD
+//#define REVD
 
 /******************************************************************
 *	 CUSTOM MACRO DEFINITION
@@ -188,17 +188,22 @@ static iomux_v3_cfg_t mx6qd_seco_UDOO_pads[] = {
 	MX6Q_PAD_EIM_DA14__WEIM_WEIM_DA_A_14,		//    - for CPLD logic
 	MX6Q_PAD_EIM_DA15__WEIM_WEIM_DA_A_15,		//    - for CPLD logic
 
-	MX6Q_PAD_EIM_A17__GPIO_2_21,				//    - for CPLD logic
+
+		/* GPIO2 */
+	MX6Q_PAD_EIM_A17__GPIO_2_21,				//    - for CPLD logic		//unique
 	MX6Q_PAD_EIM_A18__GPIO_2_20,				//    - for CPLD logic
 	MX6Q_PAD_EIM_A20__GPIO_2_18,				//    - for CPLD logic
 	MX6Q_PAD_EIM_A21__GPIO_2_17,				//    - for CPLD logic
 	MX6Q_PAD_EIM_A22__GPIO_2_16,				//    - for CPLD logic
 	MX6Q_PAD_EIM_A23__GPIO_6_6,					//    - for CPLD logic
 	MX6Q_PAD_EIM_A24__GPIO_5_4,					//    - for CPLD logic
-	MX6Q_PAD_EIM_A25__GPIO_5_2,					//      HDMI - check       
+	
+	
+	MX6Q_PAD_EIM_A25__GPIO_5_2,					//      HDMI - check   //unique    
 
-	MX6Q_PAD_KEY_COL3__I2C2_SCL,				// I2C2_SCL	
-	MX6Q_PAD_KEY_ROW3__I2C2_SDA,				// I2C2_SDA	
+		/* I2C2 */
+	MX6Q_PAD_KEY_COL3__I2C2_SCL,				// I2C2_SCL	- SMB //both different from DL
+	MX6Q_PAD_KEY_ROW3__I2C2_SDA,				// I2C2_SDA	- SMB
 
 	
 	/* 
@@ -246,7 +251,6 @@ static iomux_v3_cfg_t mx6qd_seco_UDOO_pads[] = {
 	//MX6Q_PAD_CSI0_DAT10__GPIO_5_28,						// pin 1
 		MX6Q_PAD_CSI0_DAT10__UART1_TXD,
     MX6Q_PAD_SD1_CLK__GPIO_1_20,							// pin 2 
-
 		// MX6Q_PAD_SD1_CLK__USDHC1_CLK,  
 		// MX6Q_PAD_SD1_DAT1__ECSPI5_SCLK,  
 	MX6Q_PAD_SD1_DAT0__GPIO_1_16,							// pin 3 
@@ -353,10 +357,10 @@ static iomux_v3_cfg_t mx6qd_seco_UDOO_pads[] = {
 	//MX6Q_PAD_EIM_D25__GPIO_3_25,							// pin 47
 		MX6Q_PAD_EIM_D25__UART3_RXD,
 		
-	MX6Q_PAD_KEY_ROW1__GPIO_4_9,							// pin 48
-		// MX6Q_PAD_KEY_ROW1__UART5_RXD,
-	MX6Q_PAD_KEY_COL1__GPIO_4_8,							// pin 49
-		// MX6Q_PAD_KEY_COL1__UART5_TXD,      
+	//MX6Q_PAD_KEY_ROW1__GPIO_4_9,							// pin 48
+		MX6Q_PAD_KEY_ROW1__UART5_RXD,
+	//MX6Q_PAD_KEY_COL1__GPIO_4_8,							// pin 49
+		MX6Q_PAD_KEY_COL1__UART5_TXD,      
 		// MX6Q_PAD_KEY_COL1__USDHC1_VSELECT,
 	
 	MX6Q_PAD_EIM_OE__GPIO_2_25,								// pin 50
@@ -371,10 +375,10 @@ static iomux_v3_cfg_t mx6qd_seco_UDOO_pads[] = {
 		 MX6Q_PAD_EIM_D24__UART3_TXD,  
 		// MX6Q_PAD_EIM_D24__ECSPI1_SS2,
 
-	MX6Q_PAD_GPIO_7__GPIO_1_7,								// can tx
-		// MX6Q_PAD_GPIO_7__CAN1_TXCAN,
-	MX6Q_PAD_GPIO_8__GPIO_1_8,								// can rx
-		// MX6Q_PAD_GPIO_8__CAN1_RXCAN,
+	// MX6Q_PAD_GPIO_7__GPIO_1_7,								// can tx
+		MX6Q_PAD_GPIO_7__CAN1_TXCAN,
+	// MX6Q_PAD_GPIO_8__GPIO_1_8,								// can rx
+		MX6Q_PAD_GPIO_8__CAN1_RXCAN,
 };
 
 static unsigned int mx6q_set_in_outputmode_low[] = {
