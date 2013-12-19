@@ -965,17 +965,16 @@ static void __init mx6_seco_UDOO_timer_init(void) {
 #endif
 	mx6_clocks_init(32768, 24000000, 0, 0);
 
-	/*###these two lines enable the bootconsole output feature*/
-	
+	/*###the two syntax lines enable the bootconsole output feature*/
 	#ifdef JCONFIG_USE_UART
 		uart_clk = clk_get_sys("imx-uart.3", NULL); //UART4 
 		early_console_setup(UART4_BASE_ADDR, uart_clk); //UART4
 	#elif defined JCONFIG_USE_USB
 		uart_clk = clk_get_sys("imx-uart.0", NULL); //usb
 		early_console_setup(UART2_BASE_ADDR, uart_clk); //usb
-	#else //default to USB
-		uart_clk = clk_get_sys("imx-uart.0", NULL); //usb
-		early_console_setup(UART2_BASE_ADDR, uart_clk); //usb
+	#else //default to UART4
+		uart_clk = clk_get_sys("imx-uart.3", NULL); //usb
+		early_console_setup(UART4_BASE_ADDR, uart_clk); //usb
 	#endif
 }
 
